@@ -4,7 +4,7 @@ plugins {
 	id 'java'
 }
 
-group = 'mx.java.ms.sc.ventas'
+group = 'mx.com.ms.ecommerce.gestion.admin'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 

@@ -1,23 +1,23 @@
 ## -- Configuracion local APIREST
-server:
-  port: 8081
+#server:
+#  port: 8081
 
 # Oracle #
-spring:
-  datasource:
-    url: jdbc:oracle:thin:@localhost:1521:xe
-    username: msmicroservicios
-    password: admin1234
+#spring:
+#  datasource:
+#    url: jdbc:oracle:thin:@localhost:1521:xe
+#    username: msmicroservicios
+#    password: admin1234
 
 ## -- Configuracion cloud:
-#spring:
-#  application:
-#    name: ms-ecommerce-gestion-usuarios
-#  cloud:
-#    config:
-#      uri: http://localhost:8888
-#      fail-fast: true
-#      retry:
-#        max-attempts: 20
-#        max-interval: 15000
-#        initial-interval: 10000
+spring:
+  application:
+    name: ms-ecommerce-gestion-usuarios
+  cloud:
+    config:
+      uri: http://localhost:8888
+      fail-fast: true
+      retry:
+        max-attempts: 20
+        max-interval: 15000
+        initial-interval: 10000
