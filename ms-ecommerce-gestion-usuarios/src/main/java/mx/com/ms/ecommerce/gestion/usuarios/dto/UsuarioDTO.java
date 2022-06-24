@@ -10,9 +10,15 @@ public class UsuarioDTO implements Serializable{
 
 		private Long id;
 	  	private String nombre;
-	  	private String descripcion;
-	  	private Double precio;
-	  	private Double stock;
-	  	private String estado;
+	  	private String apellidoMaterno;
+	  	private String apellidoPaterno;
+	  	private String fechaNacimiento;
+	  	private String direccion;
+	  	private Long codigoPostal;
+	  	private String telefono;
+	  	private String email;
+	  	private String usuario;
+	  	private String claveAcceso;
+	  	private Long idRol;
 
 }
