@@ -1,0 +1,30 @@
+server:
+  port: 8888
+spring:
+  application:
+    name: ms-admin-config-server
+#Configuracion Local
+#  profiles:
+#    active: native
+#  cloud:
+#    config:
+#      server: 
+#        native:     
+#          searchLocations: file:///C:/Users/gerar/Documents/Curso Microservicios/repo/microservicios/ms-admin-server-data
+          
+#Configuracion Cloud (git)
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/Jerryliv3/microservicios.git
+          search-paths:
+          - ms-admin-server-data # Estra es la ruta de la carpete donde estan las configuraciones de los Microservios
+          username: ${USER_NAME}
+          password: ${USER_PASSWORD}
+          clone-on-start: true
+          force-pull: true
+          timeout: 5
+          default-label: feature/3_Sesion   
+                    
+          
