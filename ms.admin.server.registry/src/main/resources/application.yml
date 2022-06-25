@@ -1,7 +1,7 @@
 
 spring:
   application:
-    name: ms-admin-registry-server
+    name: ms-admin-server-registry
   cloud:
     config:
       uri: http://localhost:8888
