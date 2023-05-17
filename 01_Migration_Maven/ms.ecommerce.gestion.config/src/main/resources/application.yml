@@ -1,0 +1,31 @@
+
+server:
+  port: 8888
+spring:
+  application:
+    name: ms-admin-server-config
+#Configuracion Local
+  profiles:
+    active: native
+  cloud:
+    config:
+      server: 
+        native:     
+          searchLocations: file:///C:/01_Dev_Proyectos/01_Dev_Back_MS_Tienda_Online/store_online/01_Migration_Maven/ms-admin-server-data/
+          
+#Configuracion Cloud (git)
+#  cloud:
+#    config:
+#      server:
+#        git:
+#          uri: https://github.com/Jerryliv3/microservicios.git
+#          search-paths:
+#          - ms-admin-server-data # Estra es la ruta de la carpete donde estan las configuraciones de los Microservios
+#          username: ${USER_NAME}
+#          password: ${USER_PASSWORD}
+#          clone-on-start: true
+#          force-pull: true
+#          timeout: 5
+#          default-label: feature/3_Sesion   
+                    
+          

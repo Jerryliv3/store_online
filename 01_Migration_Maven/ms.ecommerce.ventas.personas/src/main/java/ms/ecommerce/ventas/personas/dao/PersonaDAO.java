@@ -1,0 +1,40 @@
+package ms.ecommerce.ventas.personas.dao;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import ms.ecommerce.ventas.personas.entity.PersonaEntity;
+import ms.ecommerce.ventas.personas.entity.UsuarioEntity;
+import ms.ecommerce.ventas.personas.models.Response;
+
+@Repository
+public class PersonaDAO implements IPersonaDAO {
+
+	@Autowired
+	private IExecDAO dao;
+	
+	@Override
+	public Response savePerson(PersonaEntity personaEntity) {
+		Response response = dao.execStoredProcedure(personaEntity, "scGuardarPersona");
+		return response;
+	}
+
+	@Override
+	public Response savePersonUser(UsuarioEntity usuarioEntity) {
+		Response response = dao.execStoredProcedure(usuarioEntity, "scGuardarUsuario");
+		return response;
+	}
+
+	@Override
+	public Response deletePerson(PersonaEntity personaEntity) {
+		Response response = dao.execStoredProcedure(personaEntity, "scEliminarPersona");
+		return response;
+	}
+
+	@Override
+	public Response deletePersonUser(UsuarioEntity usuarioEntity) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+
+}

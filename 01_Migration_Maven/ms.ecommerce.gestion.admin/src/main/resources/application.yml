@@ -1,0 +1,19 @@
+
+server:
+  port: 8890
+spring:
+  application:
+    name: ms-admin-server
+#  boot:  ## esta parte es para excluir algun micorservicio
+#    admin:
+#      discovery:
+#        ignored-services: gateway-service
+
+# Registry Client
+eureka:
+   client:
+      registryFetchIntervalSeconds: 5
+      fetch-registry: true
+      serviceUrl:
+         defaultZone: http://localhost:8889/eureka
+

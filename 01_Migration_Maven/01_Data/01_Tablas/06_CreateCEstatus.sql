@@ -1,0 +1,21 @@
+USE StoreOnline
+GO
+
+/****** Object:  Table [dbo].[CEstatus]    Script Date: 14/05/2023 04:21:07 p. m. ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[CEstatus](
+	[EstatusId] [int] IDENTITY(0,1) NOT NULL,
+	[Estatus] [varchar](30) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[EstatusId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+
