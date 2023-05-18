@@ -33,10 +33,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		try {
 			UsuarioDTO usuarioDTO = new UsuarioDTO();
 			Response response = logginService.findUser(username);
-			log.info("response {}",response);
 			if ( response.getIsCorrect().equals("true") ) {		
 				usuarioDTO = (UsuarioDTO) response.getRowsEntitites();
-				log.info("usuarioDTO {}",response.getRowsEntitites());
 			} else {
 				throw new UsernameNotFoundException("Usuario no encontrado!");
 			}
@@ -49,6 +47,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 					.build();
 			
 		} catch (Exception e) {
+			log.error("Error: {}", e);
 			throw new UsernameNotFoundException("Error al cargar usuario!");
 		}
 
@@ -59,7 +58,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		for (RolDTO authorityEntity : listRoles) {
 			authorityList.add(new SimpleGrantedAuthority(authorityEntity.getRol()));
 		}
-		log.info("authorityList {}",authorityList);
 		return authorityList;
 	}	
 }

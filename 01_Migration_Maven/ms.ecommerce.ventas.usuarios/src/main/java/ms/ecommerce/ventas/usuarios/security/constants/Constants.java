@@ -13,15 +13,15 @@ public class Constants {
 	 public static final String AUTHORITIES					= 				"authorities";
 
 	 // JWT
-
+	 
 	 public static final String ISSUER_INFO = 									"usuario";
 	 
 	 //https://www.allkeysgenerator.com/ Encryption key 512-bit
 	 
-	 public static final String SUPER_SECRET_KEY = 						"r4u7x!A%D*G-KaP"; //123
+	 public static final String SUPER_SECRET_KEY = 						"q3t6w9z$C&F)J@NcRfTjWnZr4u7x!A%D*G-KaPdSgVkXp2s5v8y/B?E(H+MbQeTh"; //123
 	 
-	 public static final long 	TOKEN_EXPIRATION_TIME_TOKEN = 900_000; // 1 day  86_400_000
+	 public static final long 	TOKEN_EXPIRATION_TIME_TOKEN = 1_900_000; // 1 day  86_400_000
 
-	 public static final long 	TOKEN_EXPIRATION_TIME_REFRESH_TOKEN = 60_000; // 1 day  86_400_000
+	 public static final long 	TOKEN_EXPIRATION_TIME_REFRESH_TOKEN = 900_000; // 1 day  86_400_000
 
 }

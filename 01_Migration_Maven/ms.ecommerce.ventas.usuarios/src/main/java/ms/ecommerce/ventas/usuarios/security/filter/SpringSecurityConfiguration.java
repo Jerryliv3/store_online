@@ -2,7 +2,6 @@ package ms.ecommerce.ventas.usuarios.security.filter;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -15,8 +14,6 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import lombok.RequiredArgsConstructor;
-import ms.ecommerce.ventas.usuarios.security.constants.Constants;
-import ms.ecommerce.ventas.usuarios.security.utils.JWTUtils;
 
 
 @RequiredArgsConstructor
@@ -29,7 +26,6 @@ public class SpringSecurityConfiguration {
 	
 	private final BCryptPasswordEncoder bCryptPasswordEncoder; // Esto extraé el mecanismo de cifrado
 	
-	private final JWTUtils jWTUtils;
 
 	@Bean
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -40,30 +36,20 @@ public class SpringSecurityConfiguration {
 		)
 		*/
 		http.cors().and().csrf().disable(); // Solo para uso en desarrollo
-		
-		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-				
-		http.authorizeHttpRequests(authorize -> authorize.requestMatchers("/auth/**").permitAll());
-		
+		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);			
+		http.authorizeHttpRequests(authorize -> authorize.requestMatchers("/auth/**").permitAll());	
 		http.authorizeHttpRequests(
 				authorize ->	authorize.requestMatchers("/public/**").permitAll());
-		
-		http.authorizeHttpRequests(
-				authorize ->	authorize.requestMatchers("/v1/**").permitAll());
-		
+			
 		http.authorizeHttpRequests(
 				authorize ->	authorize
-								 		.requestMatchers("/v2/**").hasRole("USUARIO")
 								 		.requestMatchers("/private/**").hasRole("ADMINISTRADOR")
 								 		.requestMatchers("/**", "/shared/**").hasAnyRole("ADMINISTRADOR","USUARIO")
 								 		.anyRequest()
 								 		.authenticated()
-		);
-		
+		);	
 		http.authenticationProvider(authenticationProvider());
-		
 		http.addFilterBefore(jWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
-
 		return http.build();
 	}
 	

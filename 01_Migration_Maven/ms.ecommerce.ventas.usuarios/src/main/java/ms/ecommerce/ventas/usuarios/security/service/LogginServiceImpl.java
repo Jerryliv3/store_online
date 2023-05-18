@@ -38,6 +38,7 @@ public class LogginServiceImpl implements ILogginService {
 		this.gson = gson;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public Response findUser(LogginDTO logginDTO) {
 		Response response = new Response ();
@@ -65,10 +66,10 @@ public class LogginServiceImpl implements ILogginService {
 			}
 			
 		} catch (Exception e) {
-			log.error("Error al procesar la información: ", e);
 			response.setIsCorrect("false");
 			response.setIsBreakOperation("true");
 			response.setMessage(e.getMessage());
+			log.error("Error al procesar la información: {}", e);
 		}
 
 		return response;
@@ -92,10 +93,10 @@ public class LogginServiceImpl implements ILogginService {
 				response.setMessage(OBJECT_NULL);
 			}
 		} catch (Exception e) {
-			log.error("Error al procesar la información: ", e);
 			response.setIsCorrect("false");
 			response.setIsBreakOperation("true");
 			response.setMessage(e.getMessage());
+			log.error("Error al procesar la información: {}", e);
 		}
  			
  		return response;
@@ -105,6 +106,7 @@ public class LogginServiceImpl implements ILogginService {
 		return jsonMapper.convertValue(d, LogginEntity.class);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public Response findUser(String username) {
 		Response response = new Response ();
@@ -132,10 +134,10 @@ public class LogginServiceImpl implements ILogginService {
 			}
 			
 		} catch (Exception e) {
-			log.error("Error al procesar la información: ", e);
 			response.setIsCorrect("false");
 			response.setIsBreakOperation("true");
 			response.setMessage(e.getMessage());
+			log.error("Error al procesar la información: {}", e);
 		}
 
 		return response;

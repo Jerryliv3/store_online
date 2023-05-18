@@ -1,3 +1,4 @@
+/*
 package ms.ecommerce.ventas.usuarios.security.app;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -15,4 +16,4 @@ public class AppEncoder {
 		
 	}
 
-}
+} */

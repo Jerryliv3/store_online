@@ -11,7 +11,7 @@ import ms.ecommerce.ventas.usuarios.security.models.Response;
 public class LogginDAO implements ILogginDAO {
 	
 	@Autowired
-	private IExecDAO dao;
+	private IExecSPDAO dao;
 
 	@Override
 	public Response getUser(LogginEntity logginEntity) {

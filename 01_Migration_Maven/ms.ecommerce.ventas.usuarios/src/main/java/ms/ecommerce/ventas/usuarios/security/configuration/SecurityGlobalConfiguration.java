@@ -12,7 +12,7 @@ public class SecurityGlobalConfiguration {
 
 	@Bean
 	BCryptPasswordEncoder bCryptPasswordEncoder() {
-		return new BCryptPasswordEncoder();
+		return new BCryptPasswordEncoder(12);
 	}
 	
 	@Bean

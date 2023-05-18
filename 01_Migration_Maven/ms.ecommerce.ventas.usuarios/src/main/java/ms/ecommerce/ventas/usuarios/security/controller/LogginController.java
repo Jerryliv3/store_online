@@ -3,9 +3,6 @@ package ms.ecommerce.ventas.usuarios.security.controller;
 import static ms.ecommerce.ventas.usuarios.security.commons.GlobalMessages.*;
 import static ms.ecommerce.ventas.usuarios.security.commons.GobalConstants.*;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -23,8 +20,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ms.ecommerce.ventas.usuarios.security.controller.response.ResponseRequest;
 import ms.ecommerce.ventas.usuarios.security.dto.LogginDTO;
-import ms.ecommerce.ventas.usuarios.security.dto.RefreshTokenRequest;
-import ms.ecommerce.ventas.usuarios.security.dto.TokenResponse;
+import ms.ecommerce.ventas.usuarios.security.dto.RefreshTokenRequestDTO;
 import ms.ecommerce.ventas.usuarios.security.exceptions.TokenException;
 import ms.ecommerce.ventas.usuarios.security.exceptions.TokenRefreshException;
 import ms.ecommerce.ventas.usuarios.security.models.Response;
@@ -52,7 +48,6 @@ public class LogginController {
 	@PostMapping(API_USUARIO_LOGGIN)
 	public ResponseEntity<?> login(@RequestBody LogginDTO logginDTO) throws TokenException {
 		try {
-			log.info("loginRequest {}", logginDTO);
 			UsernamePasswordAuthenticationToken upat = new UsernamePasswordAuthenticationToken(logginDTO.getUser(),
 					logginDTO.getPassword());
 			Authentication authentication = authenticationManagerBuilder.getObject().authenticate(upat);
@@ -69,19 +64,18 @@ public class LogginController {
 					.message(response.getMessage()).code(response.getIsCorrect().equals(IS_CORRECT_FALSE) ? 0 : 1)
 					.token(token).refreshToken(refeshToken).build());
 		} catch (Exception e) {
+			log.error("Error al iniciar sesión: ",e);
 			return ResponseEntity.ok(ResponseRequest.builder().isCorrect(IS_CORRECT_FALSE)
 					.isBreakOperation(IS_CORRECT_TRUE).message(e.getMessage()).code(0).build());
 		}
 	}
 
 	@PostMapping("/refreshtoken")
-	public ResponseEntity<?> refreshtoken(@RequestBody RefreshTokenRequest refreshTokenRequest) throws Exception {
+	public ResponseEntity<?> refreshtoken(@RequestBody RefreshTokenRequestDTO refreshTokenRequest) throws Exception {
 		try {
 			String tokenRequest = refreshTokenRequest.getToken();
-			log.info("tokenRequest {}", tokenRequest);
 			if (jwtUtils.validateJwtToken(tokenRequest)) {
 				String token = jwtUtils.generateJwtFromTokenRefresh(tokenRequest);
-				log.info("token with refresh {}", token);
 				String user = jwtUtils.getUserNameFromJwtToken(token);
 				UserDetails userDetails = userDetailsService.loadUserByUsername(user);
 				Response response = logginService.findUser(userDetails.getUsername()); // Se puso de forma temporal,

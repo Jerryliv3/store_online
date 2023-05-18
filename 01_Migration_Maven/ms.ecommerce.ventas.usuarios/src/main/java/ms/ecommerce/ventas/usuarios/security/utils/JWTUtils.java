@@ -30,16 +30,10 @@ public class JWTUtils {
 	public String generateJwtToken(Authentication authentication, Boolean swRefreshToken) {
 
 		UserDetails userPrincipal = (UserDetails) authentication.getPrincipal();
-
 		Collection<? extends GrantedAuthority> authorities = userPrincipal.getAuthorities();
-
-		// System.out.println("Authorities -> "+ authorities);
-
 		Long time = (!swRefreshToken) ? TOKEN_EXPIRATION_TIME_TOKEN : TOKEN_EXPIRATION_TIME_REFRESH_TOKEN;
-
 		Collection<?> authoritiesItems = authorities.stream().map(GrantedAuthority::getAuthority)
 				.collect(Collectors.toList());
-
 		String token = Jwts.builder().setIssuedAt(new Date()).setIssuer(ISSUER_INFO)
 				.setSubject(userPrincipal.getUsername()).setExpiration(new Date(System.currentTimeMillis() + time))
 				.claim(AUTHORITIES, authoritiesItems).signWith(SignatureAlgorithm.HS512, SUPER_SECRET_KEY).compact();
@@ -50,7 +44,6 @@ public class JWTUtils {
 
 	public String generateJwtFromTokenRefresh(String refreshToken) {
 		String username = this.getUserNameFromJwtToken(refreshToken);
-		log.info("username {}", username);
 		UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
 		String token = Jwts.builder().setIssuedAt(new Date()).setIssuer(ISSUER_INFO)
@@ -73,7 +66,7 @@ public class JWTUtils {
 			Jwts.parser().setSigningKey(SUPER_SECRET_KEY).parseClaimsJws(authToken);
 			return true;
 		} catch (Exception e) {
-			log.error("Invalid JWT signature: {}", e.getMessage());
+			log.error("Invalid JWT signature: {}", e);
 			throw new Exception();
 		}
 
