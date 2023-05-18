@@ -15,7 +15,6 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import lombok.RequiredArgsConstructor;
-import ms.ecommerce.ventas.usuarios.security.configuration.JWTHTTPConfigurer;
 import ms.ecommerce.ventas.usuarios.security.constants.Constants;
 import ms.ecommerce.ventas.usuarios.security.utils.JWTUtils;
 
@@ -43,9 +42,8 @@ public class SpringSecurityConfiguration {
 		http.cors().and().csrf().disable(); // Solo para uso en desarrollo
 		
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-		
-		http.authorizeHttpRequests(
-				authorize -> authorize.requestMatchers(HttpMethod.POST, Constants.LOGIN_URL).permitAll());
+				
+		http.authorizeHttpRequests(authorize -> authorize.requestMatchers("/auth/**").permitAll());
 		
 		http.authorizeHttpRequests(
 				authorize ->	authorize.requestMatchers("/public/**").permitAll());
@@ -66,8 +64,6 @@ public class SpringSecurityConfiguration {
 		
 		http.addFilterBefore(jWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
 
-		http.apply(new JWTHTTPConfigurer(jWTUtils));
-		
 		return http.build();
 	}
 	

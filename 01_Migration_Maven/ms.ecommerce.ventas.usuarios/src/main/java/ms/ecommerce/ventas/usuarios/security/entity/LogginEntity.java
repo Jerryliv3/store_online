@@ -13,4 +13,13 @@ public class LogginEntity {
 	private String user;
 	private String password;
 	
+	public LogginEntity(String user, String password) {
+		super();
+		this.user = user;
+		this.password = password;
+	}
+	public LogginEntity() {
+		super();
+	}
+	
 }

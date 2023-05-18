@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import ms.ecommerce.ventas.usuarios.security.dto.LogginDTO;
 import ms.ecommerce.ventas.usuarios.security.dto.RolDTO;
 import ms.ecommerce.ventas.usuarios.security.dto.UsuarioDTO;
 import ms.ecommerce.ventas.usuarios.security.models.Response;
@@ -33,11 +32,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 		try {
 			UsuarioDTO usuarioDTO = new UsuarioDTO();
-			LogginDTO logginDTO = new LogginDTO();
-			logginDTO.setUser(username);
-			logginDTO.setPassword("");
-			
-			Response response = logginService.findUser(logginDTO);
+			Response response = logginService.findUser(username);
+			log.info("response {}",response);
 			if ( response.getIsCorrect().equals("true") ) {		
 				usuarioDTO = (UsuarioDTO) response.getRowsEntitites();
 				log.info("usuarioDTO {}",response.getRowsEntitites());

@@ -7,6 +7,8 @@ public interface GenericeService<T> {
 	
 	public Response findUser (T t);
 	
+	public Response findUser (String username);
+	
 	public Response findRolUser (UsuarioDTO usuarioDTO);
 	
 }

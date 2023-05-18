@@ -105,4 +105,40 @@ public class LogginServiceImpl implements ILogginService {
 		return jsonMapper.convertValue(d, LogginEntity.class);
 	}
 
+	@Override
+	public Response findUser(String username) {
+		Response response = new Response ();
+		try {
+			if ( !isNull(username) ) {
+				response = logginDAO.getUser(username);
+				if ( response.getIsCorrect().equals(IS_CORRECT_TRUE) ) {
+					UsuarioDTO usuarioDTO = new UsuarioDTO();
+					List<UsuarioDTO> listUsuarioDTO = gson.fromJson(response.getData().getInfo().getResult(), new TypeToken <List<UsuarioDTO>>(){}.getType());
+					if ( !isNull(listUsuarioDTO) ) {
+						Response responseRol = new Response();
+						usuarioDTO = listUsuarioDTO.get(0);
+						responseRol = findRolUser(usuarioDTO);
+						if ( responseRol.getIsCorrect().equals(IS_CORRECT_TRUE) ) {
+							usuarioDTO.setListRoles((List<RolDTO>)responseRol.getRowsEntitites());
+						}
+						response.setRowsEntitites(usuarioDTO);
+					}
+					
+				}
+			} else {
+				response.setIsCorrect("false");
+				response.setIsBreakOperation("true");
+				response.setMessage(OBJECT_NULL);
+			}
+			
+		} catch (Exception e) {
+			log.error("Error al procesar la información: ", e);
+			response.setIsCorrect("false");
+			response.setIsBreakOperation("true");
+			response.setMessage(e.getMessage());
+		}
+
+		return response;
+	}
+
 }

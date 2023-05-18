@@ -11,5 +11,7 @@ public interface ILogginDAO {
 
 	public Response getUser (LogginEntity logginEntity);
 	
+	public Response getUser (String username);
+	
 	public Response getListUserRol(UsuarioEntity usuarioEntity);
 }

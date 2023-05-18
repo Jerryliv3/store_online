@@ -7,8 +7,8 @@ SET QUOTED_IDENTIFIER ON
 GO
 
   /*----------------------------------------------------------------------------  
-// Stored Procedure: [scObtenerUsuario].  
-//         Objetivo: Agrega Entidad Usuario
+// Stored Procedure: [scObtenerUsuarioLogin].  
+//         Objetivo: Obtiene credenciales de usuario
 //            Fecha: 09 Mayo 2023.  
 //            Autor: Gerardo Garcia  
 //          Versión: 1.0.0.0.  
@@ -17,7 +17,7 @@ GO
 // Fecha     | Versión    | Autor  | Detalle  
 
 //-----------------------------------------------------------------------------*/  
-ALTER PROCEDURE [dbo].[scObtenerUsuario] (  
+CREATE PROCEDURE [dbo].[scObtenerUsuarioLogin] (  
  @xmlText nvarchar(max),  
  @ResultText nvarchar(max) OUTPUT  
 )  
@@ -81,7 +81,7 @@ BEGIN
 	SET @strSQL ='select 
 				U.UsuarioId usuarioId,
 				U.LoginUsuario loginUsuario,
-				''*****'' password,
+				U.Password password,
 				U.FechaCaducidad fechaCaducidad,
 				U.FechaRegistro fechaRegistro,
 				U.PrimeraVez as primeraVez,
@@ -95,7 +95,7 @@ BEGIN
 				join Persona P on P.PersonaId = U.UsuarioId  
 				where P.EstatusId = (SELECT TOP 1 EstatusId FROM CEstatus WHERE Estatus LIKE ''Activo'')'+ nCHAR(13);
 
-	--SET @strSQL = @strSQL + ' and U.LoginUsuario like '''+@Login+''' and U.Password like ''' +@Password+ '''' + CHAR(13); -- Esta validacion se delega a SpringSecurity
+	--SET @strSQL = @strSQL + ' and U.LoginUsuario like '''+@Login+''' and U.Password like ''' +@Password+ '''' + CHAR(13);
 	SET @strSQL = @strSQL + ' and U.LoginUsuario like '''+@Login+ '''' + CHAR(13); 
 
 	DECLARE @table TABLE (

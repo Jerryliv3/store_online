@@ -15,6 +15,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import ms.ecommerce.ventas.usuarios.security.utils.JWTUtils;
+import static ms.ecommerce.ventas.usuarios.security.constants.Constants.*;
 
 @Slf4j
 public class JWTAuthorizationFilter extends OncePerRequestFilter {
@@ -31,21 +32,32 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
 		log.info("doFilterInternal...");
 		try {
 			String jwt = jwtUtils.parseJwt(request);
+			//log.info("jwt  {}", jwt);
+			
 			if (jwt != null && jwtUtils.validateJwtToken(jwt)) {
-				
-				String username = jwtUtils.getUserNameFromJwtToken(jwt);
 
+				String username = jwtUtils.getUserNameFromJwtToken(jwt);
+				//log.info("username {}", username);
 				UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-				
+
 				UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-						userDetails, null, userDetails.getAuthorities());
-				
-				authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+						userDetails, userDetails.getPassword(), userDetails.getAuthorities());
+
+				String token = jwtUtils.generateJwtToken(authentication, false);
+
+				log.info("token doFilterInternal " + token);
+
+				response.addHeader("Access-Control-Expose-Headers", "Authorization");
+
+				response.addHeader(HEADER_AUTHORIZACION_KEY, TOKEN_BEARER_PREFIX + " " + token);
+				//log.info("authentication {}", authentication);
+				 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
 				SecurityContextHolder.getContext().setAuthentication(authentication);
 			}
 		} catch (Exception e) {
 			log.error("Cannot set user authentication: {}", e);
+			throw new ServletException();
 		}
 
 		filterChain.doFilter(request, response);

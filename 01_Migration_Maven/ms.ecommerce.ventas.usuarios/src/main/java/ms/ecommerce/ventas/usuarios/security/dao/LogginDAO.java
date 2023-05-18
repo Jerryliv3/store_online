@@ -25,6 +25,13 @@ public class LogginDAO implements ILogginDAO {
 		return response;
 	}
 
+	@Override
+	public Response getUser(String username) {
+		LogginEntity logginEntity = new LogginEntity (username,"");
+		Response response = dao.execStoredProcedure(logginEntity, "scObtenerUsuarioLogin");
+		return response;
+	}
+
 
 
 }
