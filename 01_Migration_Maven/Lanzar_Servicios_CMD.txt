@@ -1,10 +1,33 @@
 Ejecutar servicios independientes:
 
+Ingresar a la carpeta de cada microservicio y correo:::  mvn spring-boot:run
+
+MS-Config
+C:\01_Dev_Proyectos\01_Dev_Back_MS_Tienda_Online\store_online\01_Migration_Maven\ms.ecommerce.gestion.config
+
+MS-Registry
+C:\01_Dev_Proyectos\01_Dev_Back_MS_Tienda_Online\store_online\01_Migration_Maven\ms.ecommerce.gestion.registry
+
+MS-User
+C:\01_Dev_Proyectos\01_Dev_Back_MS_Tienda_Online\store_online\01_Migration_Maven\ms.ecommerce.ventas.usuarios
+
+
+MS-Gateway
+C:\01_Dev_Proyectos\01_Dev_Back_MS_Tienda_Online\store_online\01_Migration_Maven\ms.ecommerce.gestion.gateway
+
+
+###############################################################################################################################################################
+Por medio de ejecutable .JAR:
+
 MS-Config
 java -jar C:\01_Dev_Proyectos\01_Dev_Back_MS_Tienda_Online\store_online\01_Migration_Maven\ms.ecommerce.gestion.config\target\ms.ecommerce.gestion.config-0.0.1-SNAPSHOT.jar
 
 MS-Registry
 java -jar C:\01_Dev_Proyectos\01_Dev_Back_MS_Tienda_Online\store_online\01_Migration_Maven\ms.ecommerce.gestion.registry\target\ms.ecommerce.gestion.registry-0.0.1-SNAPSHOT.jar
+
+MS-User
+java -jar C:\01_Dev_Proyectos\01_Dev_Back_MS_Tienda_Online\store_online\01_Migration_Maven\ms.ecommerce.gestion.registry\target\ms.ecommerce.gestion.registry-0.0.1-SNAPSHOT.jar
+
 
 MS-Gateway
 java -jar C:\01_Dev_Proyectos\01_Dev_Back_MS_Tienda_Online\store_online\01_Migration_Maven\ms.ecommerce.gestion.gateway\target\ms.ecommerce.gestion.gateway-0.0.1-SNAPSHOT.jar 
