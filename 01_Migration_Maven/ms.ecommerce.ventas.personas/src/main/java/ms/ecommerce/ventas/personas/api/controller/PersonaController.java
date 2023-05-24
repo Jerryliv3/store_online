@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lombok.extern.slf4j.Slf4j;
 import ms.ecommerce.ventas.personas.api.controller.response.ResponseRequest;
+import ms.ecommerce.ventas.personas.api.dto.PersonaDTO;
 import ms.ecommerce.ventas.personas.api.dto.RegistroPersonaDTO;
 import ms.ecommerce.ventas.personas.api.models.Response;
 import ms.ecommerce.ventas.personas.api.service.IPersonaService;
@@ -40,9 +41,30 @@ public class PersonaController {
 						.build()
 					);
 		} catch (Exception e) {
-			log.error(e.getMessage(), e);
+			log.error("Error server: {}", e);
 			return ResponseEntity.internalServerError().build();
 		}
+	}
+	
+	@PostMapping(API_PERSON_GET_LIST)
+	public ResponseEntity<ResponseRequest> getPersonas (@RequestBody PersonaDTO personaDTO) {
+		try {
+			Response response = personaService.findListPersonas(personaDTO);
+			return ResponseEntity.ok(
+					ResponseRequest
+					.builder()
+					.data(response.getRowsEntitites())
+					.isCorrect(response.getIsCorrect())
+					.isBreakOperation(response.getIsBreakOperation())
+					.message(response.getMessage())
+					.code(response.getIsCorrect().equals(IS_CORRECT_FALSE) ? 0 : 1)
+					.build()
+					);
+		} catch (Exception e) {
+			log.error("Error server: {}", e);
+			return ResponseEntity.internalServerError().build();
+		}
+		
 	}
 
 }

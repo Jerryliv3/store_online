@@ -30,8 +30,8 @@ public class ExecSPDAO implements IExecSPDAO {
 		var resultText = "";
 		try {
 			query = new SimpleJdbcCall(jdbcTemplate.getDataSource()).withProcedureName(name).declareParameters(
-							new SqlParameter("@xmlText", Types.NVARCHAR), 
-							new SqlOutParameter("@ResultText", Types.NVARCHAR)
+							new SqlParameter("@xmlText", Types.LONGNVARCHAR), 
+							new SqlOutParameter("@ResultText", Types.LONGNVARCHAR)
 							);
 			sqlParams.addValue("@xmlText", Helper.objectToXml(object, object.getClass()));
 			Map<String, Object> map = query.execute(sqlParams);

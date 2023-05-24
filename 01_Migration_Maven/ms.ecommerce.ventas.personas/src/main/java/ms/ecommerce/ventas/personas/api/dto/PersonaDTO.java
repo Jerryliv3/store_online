@@ -21,5 +21,6 @@ public class PersonaDTO implements Serializable {
 	private int estadoCivilId;
 	private int estatusId;
 	private int tipoPersonaId;
+	private PaginadoDTO paginado;
 
 }

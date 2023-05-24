@@ -30,18 +30,17 @@ public class ExecDAO implements IExecDAO {
 		var resultText = "";
 		try {
 			query = new SimpleJdbcCall(jdbcTemplate.getDataSource()).withProcedureName(name).declareParameters(
-							new SqlParameter("@xmlText", Types.NVARCHAR), 
-							new SqlOutParameter("@ResultText", Types.NVARCHAR)
+							new SqlParameter("@xmlText", Types.LONGNVARCHAR), 
+							new SqlOutParameter("@ResultText", Types.LONGNVARCHAR)
 							);
 			sqlParams.addValue("@xmlText", Helper.objectToXml(object, object.getClass()));
 			Map<String, Object> map = query.execute(sqlParams);
 			resultText = (String) map.get("@ResultText");
-
 		} catch (Exception e) {
 			response.setIsBreakOperation("true");
 			response.setIsCorrect("false");
-			response.setMessage(e.getMessage());
-			log.error("Error al ejecutar SP:  " + e.toString());
+			response.setMessage(e.getMessage()); 
+			log.error("Error al ejecutar SP:  {}" , e);
 			return response;
 		}
 		try {
@@ -50,7 +49,7 @@ public class ExecDAO implements IExecDAO {
 			response.setIsBreakOperation("true");
 			response.setIsCorrect("false");
 			response.setMessage(i.getMessage());
-			log.error("Error al deserializar objeto XML:  " + i.toString());
+			log.error("Error al deserializar objeto XML:  {}" , i);
 		}
 		return response;
 	}
