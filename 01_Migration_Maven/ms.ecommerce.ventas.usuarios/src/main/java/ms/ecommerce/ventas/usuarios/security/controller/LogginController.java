@@ -11,6 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,6 +32,7 @@ import ms.ecommerce.ventas.usuarios.security.utils.JWTUtils;
 @Slf4j
 @RestController
 @RequestMapping(API_AUTH)
+@CrossOrigin(origins = ACCESS_CORS)
 public class LogginController {
 
 	@Autowired

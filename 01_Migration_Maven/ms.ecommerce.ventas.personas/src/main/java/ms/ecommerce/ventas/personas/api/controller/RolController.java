@@ -4,6 +4,7 @@ import static ms.ecommerce.ventas.personas.api.commons.GlobalMessages.IS_CORRECT
 import static ms.ecommerce.ventas.personas.api.commons.GobalConstants.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +20,7 @@ import ms.ecommerce.ventas.personas.api.service.IRolService;
 @Slf4j
 @RestController
 @RequestMapping(API_PERSON)
+@CrossOrigin(origins = "*")
 public class RolController {
 	
 	@Autowired

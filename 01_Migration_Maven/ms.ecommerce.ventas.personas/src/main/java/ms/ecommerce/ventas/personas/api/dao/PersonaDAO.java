@@ -3,6 +3,7 @@ package ms.ecommerce.ventas.personas.api.dao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import ms.ecommerce.ventas.personas.api.entity.BusquedaPersonaEntity;
 import ms.ecommerce.ventas.personas.api.entity.PaginadoEntity;
 import ms.ecommerce.ventas.personas.api.entity.PersonaEntity;
 import ms.ecommerce.ventas.personas.api.entity.UsuarioEntity;
@@ -41,6 +42,12 @@ public class PersonaDAO implements IPersonaDAO {
 	@Override
 	public Response getListPerson(PaginadoEntity paginadoentity) {
 		Response response = dao.execStoredProcedure(paginadoentity, "scObtenerPersonas");
+		return response;
+	}
+
+	@Override
+	public Response getPerson(BusquedaPersonaEntity busquedaPersonaEntity) {
+		Response response = dao.execStoredProcedure(busquedaPersonaEntity, "scObtenerPersona");
 		return response;
 	}
 	

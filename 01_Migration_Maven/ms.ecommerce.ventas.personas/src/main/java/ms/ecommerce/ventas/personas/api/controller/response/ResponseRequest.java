@@ -9,6 +9,7 @@ public class ResponseRequest {
 	private String isCorrect;
 	private String isBreakOperation;
 	private String message;
+	private int total;
 	private int code;
 	private Object data;
 }

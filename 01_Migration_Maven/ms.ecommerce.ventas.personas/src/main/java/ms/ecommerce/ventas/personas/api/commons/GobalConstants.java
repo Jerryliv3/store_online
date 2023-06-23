@@ -9,6 +9,7 @@ public class GobalConstants {
 	public static final String API_PERSON_ID = "/{id}";
 	public static final String API_PERSON_PATH_VAR_ID = "id";
 	public static final String API_PERSON_GET_LIST = "obtener/list-personas";
+	public static final String API_PERSON_GET = "obtener/personas";
 	
 	public static final String API_SAVE_ROL = "/rol/guardar";
 	public static final String API_GET_ROL = "/rol/obtener";
@@ -18,5 +19,7 @@ public class GobalConstants {
 	
 	public static final Integer COD_CONSULTA = 1;
 	public static final String MSG_CONSULTA = "Success";
+	
+	public static final String ACCESS_CORS = "*";
 	
 }

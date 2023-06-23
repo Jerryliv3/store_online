@@ -5,10 +5,12 @@ import java.io.Serializable;
 import lombok.Data;
 
 @Data
-public class PersonaDTO implements Serializable {
+public class BusquedaPersonaDTO implements Serializable {
 	
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
-	
 	private Long id;
 	private String nombre;
 	private String segundoNombre;
@@ -21,7 +23,8 @@ public class PersonaDTO implements Serializable {
 	private int estadoCivilId;
 	private int estatusId;
 	private int tipoPersonaId;
+	private int numeroPagina;
+	private int dimensionPagina;
 	private String origen;
-	private PaginadoDTO paginado;
 
 }

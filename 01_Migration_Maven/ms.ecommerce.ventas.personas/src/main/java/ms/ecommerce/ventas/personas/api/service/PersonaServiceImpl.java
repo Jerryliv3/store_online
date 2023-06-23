@@ -13,8 +13,10 @@ import com.google.gson.reflect.TypeToken;
 
 import lombok.extern.slf4j.Slf4j;
 import ms.ecommerce.ventas.personas.api.dao.IPersonaDAO;
+import ms.ecommerce.ventas.personas.api.dto.BusquedaPersonaDTO;
 import ms.ecommerce.ventas.personas.api.dto.PersonaDTO;
 import ms.ecommerce.ventas.personas.api.dto.RegistroPersonaDTO;
+import ms.ecommerce.ventas.personas.api.entity.BusquedaPersonaEntity;
 import ms.ecommerce.ventas.personas.api.entity.PaginadoEntity;
 import ms.ecommerce.ventas.personas.api.entity.PersonaEntity;
 import ms.ecommerce.ventas.personas.api.entity.UsuarioEntity;
@@ -138,5 +140,33 @@ public class PersonaServiceImpl implements IPersonaService {
 		}
 		return response;
 	}
+
+	@Override
+	public Response findByLikeProp(BusquedaPersonaDTO busquedaPersonaDTO) throws ServiceException {
+		try {
+			if (Objects.nonNull(busquedaPersonaDTO)) {
+
+				BusquedaPersonaEntity  busquedaPersonaEntity = jsonMapper.convertValue(busquedaPersonaDTO, BusquedaPersonaEntity.class);
+				response = personaDAO.getPerson(busquedaPersonaEntity);
+				if (response.getIsCorrect().equals("true")) {
+					List<PersonaDTO> listPersonaDTO = gson.fromJson(response.getData().getInfo().getResult(),new TypeToken<List<PersonaDTO>>() {}.getType());
+					response.setRowsEntitites(listPersonaDTO);
+				}
+
+			} else {
+				response.setIsCorrect("false");
+				response.setIsBreakOperation("true");
+				response.setMessage(OBJECT_NULL);
+			}
+			return response;
+		} catch (Exception e) {
+			log.error("Error al procesar la información: {}", e);
+			response.setIsCorrect("false");
+			response.setIsBreakOperation("true");
+			response.setMessage(e.getMessage());
+		}
+		return response;
+	}
+
 
 }
